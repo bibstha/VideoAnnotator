@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascripts/flowplayer.min.js"></script>
+    <script type="text/javascript" src="assets/javascripts/handlebars-v2.0.0.js"></script>
+    <script type="text/javascript" src="assets/javascripts/demo.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/flowplayer/functional.css">
+  </head>
+  <body>
+    <style>
+      body { 
+        font: 12px "Myriad Pro", "Lucida Grande", sans-serif; text-align: center; padding-top: 5%; 
+      }
+      .flowplayer { 
+        width: 50%; 
+      }
+      .highlighted-comment {
+        border: 1px solid #ccc;
+      }
+    </style>
+
+    <div class="flowplayer">
+    </div>
+
+    <div id="comments">
+    </div>
+
+    <!-- Templates -->
+    <script id="comment-template" type="text/x-handlebars-template">
+      <p data-id="{{ id }}">{{ comment }} by {{ user.name }}</p>
+    </script>
+
+
+  </body>
+</html>
