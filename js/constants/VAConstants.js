@@ -1,6 +1,7 @@
-var VAConstants = {
-  VA_VIDEO_CLICK: null,
-  VA_VBOX_READY: null
-};
+var keyMirror = require('keymirror');
 
-module.exports = VAConstants;
+module.exports = keyMirror({
+  VA_VBOX_CLICK: null,
+  VA_VBOX_READY: null,
+  VA_COMMENT_CREATE: null
+});

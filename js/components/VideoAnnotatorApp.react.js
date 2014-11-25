@@ -13,7 +13,7 @@ function getVideoAnnotatorState() {
 var VideoAnnotatorApp = React.createClass({
   
   getInitialState: function() {
-    return getVideoAnnotatorState();
+    return {selectedVideo: null, allVideos: []};
   },
   
   componentDidMount: function() {
@@ -25,7 +25,6 @@ var VideoAnnotatorApp = React.createClass({
   },
   
   render: function() {
-    
     return (<div>
       {this.state.allVideos.map(function(video) {
         return (
