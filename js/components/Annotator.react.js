@@ -36,9 +36,13 @@ var Annotator = React.createClass({
     if (hasComments) {
       commentNodes = 
         <div htmlClass='comments'>
-          {this.state.comments.map(function(comment) {
-            return <AnnotationItem comment={comment} key={comment.id} currentTime={this.state.videoTime}/>;
-          }, this)}
+          {
+            this.state.comments.filter(function(comment) {
+              return (this.state.videoTime >= comment.get('time'));
+            }, this).map(function(comment) {
+              return <AnnotationItem comment={comment} key={comment.id} currentTime={this.state.videoTime}/>;
+            }, this)
+          }
         </div>;
     } else {
       commentNodes = <div>No annotations yet. Please add one.</div>;
