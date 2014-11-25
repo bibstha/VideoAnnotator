@@ -1,7 +1,8 @@
 var React = require('react');
 var VAStore = require('../stores/VAStore');
 var VAActions = require('../actions/VAActions');
-var VideoPlayer = require('./VideoPlayer.react')
+var VideoPlayer = require('./VideoPlayer.react');
+var Annotator = require('./Annotator.react');
 
 function getVideoAnnotatorState() {
   return {
@@ -35,6 +36,7 @@ var VideoAnnotatorApp = React.createClass({
       }.bind(this))
       }
       <VideoPlayer></VideoPlayer>
+      <Annotator></Annotator>
     </div>);
   },
   

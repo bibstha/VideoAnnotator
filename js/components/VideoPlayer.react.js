@@ -2,6 +2,21 @@ var React = require('react');
 var VAActions = require('../actions/VAActions');
 var VideoPlayerStore = require('../stores/VideoPlayerStore');
 
+function initializeVideoPlayer(video) {
+  if (video !== null) {
+    console.log(video.get('url'));
+    $("#videoplayer").flowplayer({
+      playlist: [
+        [
+          { webm: video.get('url') }
+        ]
+      ],
+      ratio: 3/4,   // video with 4:3 aspect ratio
+      splash: true  // a splash setup
+    });
+  }
+}
+
 var VideoPlayer = React.createClass({
   getInitialState: function() {
     return {video: null}
@@ -23,17 +38,12 @@ var VideoPlayer = React.createClass({
       );
     }
   },
+  componentDidUpdate: function() {
+    initializeVideoPlayer(this.state.video);
+  },
   
   _onChange: function() {
-    var newVideo = VideoPlayerStore.getVideo();
-    this.setState({video: newVideo});
-    $("#videoplayer").flowplayer({
-      playlist: [
-        [{ webm:    newVideo.get('url') }]
-      ],
-      ratio: 3/4,   // video with 4:3 aspect ratio
-      splash: true  // a splash setup
-    });
+    this.setState({video: VideoPlayerStore.getVideo()});
   }
   
 });
