@@ -7,6 +7,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 var _video = null;
 var _comments = [];
+var _video_time = 0;
 
 var AnnotatorStore = assign({}, EventEmitter.prototype, {
   addChangeListener: function(callback) {
@@ -23,6 +24,9 @@ var AnnotatorStore = assign({}, EventEmitter.prototype, {
   },
   getComments: function() {
     return _comments;
+  },
+  getVideoTime: function() {
+    return _video_time;
   }
 });
 
@@ -38,6 +42,11 @@ AppDispatcher.register(function(payload) {
     case VAConstants.VA_COMMENT_CREATE:
       params = action.params;
       createComment(params);
+      break;
+      
+    case VAConstants.VA_VIDEO_PLAYER_PROGRESS:
+      params = action.params;
+      updateVideoPlayerProgress(params);
       break;
       
     default:
@@ -76,7 +85,11 @@ function createComment(params) {
     error: function(newComment, error) {
       console.log('Failed to create new object, with error code: ' + error.message);
     }
-  })
+  });
+}
+
+function updateVideoPlayerProgress(params) {
+  _video_time = params.time;
 }
 
 module.exports = AnnotatorStore;

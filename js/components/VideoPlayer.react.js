@@ -4,7 +4,6 @@ var VideoPlayerStore = require('../stores/VideoPlayerStore');
 
 function initializeVideoPlayer(video) {
   if (video !== null) {
-    console.log(video.get('url'));
     $("#videoplayer").flowplayer({
       playlist: [
         [
@@ -14,7 +13,17 @@ function initializeVideoPlayer(video) {
       ratio: 3/4,   // video with 4:3 aspect ratio
       splash: true  // a splash setup
     });
+    
+    var api = $("#videoplayer").flowplayer();
+    api.bind('progress', function(e, api, time) {
+      VAActions.updateVideoPlayerProgress({time: time});
+    });
   }
+}
+
+function pauseVideoPlayer() {
+  var api = $("#videoplayer").flowplayer();
+  api.pause();
 }
 
 var VideoPlayer = React.createClass({
@@ -23,9 +32,11 @@ var VideoPlayer = React.createClass({
   },
   componentDidMount: function() {
     VideoPlayerStore.addChangeListener(this._onChange);
+    VideoPlayerStore.addPlayerListener(this._onPlayerEventCallback);
   },
   componentDidUnmount: function() {
     VideoPlayerStore.removeChangeListener(this._onChange);
+    VideoPlayerStore.removePlayerListener(this._onPlayerEventCallback);
   },
   render: function() {
     if (this.state.video !== null) {
@@ -51,8 +62,16 @@ var VideoPlayer = React.createClass({
   
   _onChange: function() {
     this.setState({video: VideoPlayerStore.getVideo()});
-  }
+  },
   
+  _onPlayerEventCallback: function(type) {
+    switch (type) {
+      case 'pause':
+        pauseVideoPlayer();
+        break;
+        
+    }
+  }
 });
 
 module.exports = VideoPlayer;
