@@ -1,35 +1,19 @@
 <html>
   <head>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/javascripts/flowplayer.min.js"></script>
-    <script type="text/javascript" src="assets/javascripts/handlebars-v2.0.0.js"></script>
-    <script type="text/javascript" src="assets/javascripts/demo.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/stylesheets/flowplayer/functional.css">
+    <!-- Flowplayer requirements -->
+    <link rel="stylesheet" href="//releases.flowplayer.org/5.5.1/skin/minimalist.css"/>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//releases.flowplayer.org/5.5.1/flowplayer.min.js"></script>
+    <!-- End Flowplayer requirements -->
+    
+    <link rel="stylesheet" href="css/style.css"/>
   </head>
   <body>
-    <style>
-      body { 
-        font: 12px "Myriad Pro", "Lucida Grande", sans-serif; text-align: center; padding-top: 5%; 
-      }
-      .flowplayer { 
-        width: 50%; 
-      }
-      .highlighted-comment {
-        border: 1px solid #ccc;
-      }
-    </style>
-
-    <div class="flowplayer">
+    
+    <div id="videoannotatorapp">
     </div>
-
-    <div id="comments">
-    </div>
-
-    <!-- Templates -->
-    <script id="comment-template" type="text/x-handlebars-template">
-      <p data-id="{{ id }}">{{ comment }} by {{ user.name }}</p>
-    </script>
-
-
+    
+    <script src="//www.parsecdn.com/js/parse-1.3.2.min.js"></script>
+    <script src="js/bundle.js"></script>
   </body>
 </html>
