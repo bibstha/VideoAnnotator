@@ -25,17 +25,26 @@ var VideoAnnotatorApp = React.createClass({
   },
   
   render: function() {
-    return (<div>
-      {this.state.allVideos.map(function(video) {
-        return (
-          <div>
-            <a onClick={this._onClickVideo.bind(this, video)} href="#">{video.get('title')}</a>
-          </div>
-        );
-      }.bind(this))
-      }
-      <VideoPlayer></VideoPlayer>
-      <Annotator></Annotator>
+    return (<div className='row'>
+      <div className='col-md-3'>
+        <h4>Available Videos</h4>
+        <ol>
+        {this.state.allVideos.map(function(video) {
+          return (
+            <li>
+              <a onClick={this._onClickVideo.bind(this, video)} href="#">{video.get('title')}</a>
+            </li>
+          );
+        }.bind(this))
+        }
+        </ol>
+      </div>
+      <div className='col-md-6'>
+        <VideoPlayer></VideoPlayer>
+      </div>
+      <div className='col-md-3'>
+        <Annotator></Annotator>
+      </div>
     </div>);
   },
   

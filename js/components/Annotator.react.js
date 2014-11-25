@@ -15,23 +15,30 @@ var Annotator = React.createClass({
   },
   render: function() {
     var hasComments = (this.state.comments.length > 0)? true:false;
-    var commentsForm = '';
+    var commentsForm = 
+      <div htmlClass='new-comment'>
+        <form onSubmit={this._handleSubmit}>
+          <textarea ref='newComment' rows='3' cols='15'></textarea>
+          <input type='submit' value='Annotate'></input>
+        </form>
+      </div>;
+      
+    var commentNodes = '';
     if (hasComments) {
-      commentsForm = 
-        <div htmlClass='new-comment'>
-          <form onSubmit={this._handleSubmit}>
-            <textarea ref='newComment' rows='3' cols='15'></textarea>
-            <input type='submit' value='Annotate'></input>
-          </form>
-        </div>
-    }
-    return (
-      <div>
+      commentNodes = 
         <div htmlClass='comments'>
           {this.state.comments.map(function(comment) {
             return <div key={comment.id}>{comment.get('body')}</div>;
           })}
-        </div>
+        </div>;
+    } else {
+      commentNodes = <div>No annotations yet. Please add one.</div>;
+    }
+    
+    return (
+      <div>
+        <h4>Annotations</h4>
+        {commentNodes}
         {commentsForm}
       </div>
     );

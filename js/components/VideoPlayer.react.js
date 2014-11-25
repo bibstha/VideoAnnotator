@@ -30,11 +30,18 @@ var VideoPlayer = React.createClass({
   render: function() {
     if (this.state.video !== null) {
       return (
-        <div id="videoplayer"></div>
+        <div>
+          <h4>Video Player</h4>
+          <h3>{this.state.video.get('title')}</h3>
+          <div id="videoplayer"></div>
+        </div>
       );
     } else {
       return (
-        <div>Please select a video.</div>
+        <div>
+          <h4>Video Player</h4>
+          <div>Please select a video.</div>
+        </div>
       );
     }
   },
