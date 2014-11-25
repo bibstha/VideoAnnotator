@@ -32,17 +32,22 @@ var Annotator = React.createClass({
         </div>;
     }
       
+    var visibleComments = this.state.comments.filter(function(comment) {
+      return (this.state.videoTime >= comment.get('time'));
+    }, this);
+    
     var commentNodes = '';
     if (hasComments) {
       commentNodes = 
-        <div htmlClass='comments'>
-          {
-            this.state.comments.filter(function(comment) {
-              return (this.state.videoTime >= comment.get('time'));
-            }, this).map(function(comment) {
-              return <AnnotationItem comment={comment} key={comment.id} currentTime={this.state.videoTime}/>;
-            }, this)
-          }
+        <div>
+          <div>Showing {visibleComments.length} of {this.state.comments.length} annotations.</div>
+          <div htmlClass='comments'>
+            {
+              visibleComments.map(function(comment) {
+                return <AnnotationItem comment={comment} key={comment.id} currentTime={this.state.videoTime}/>;
+              }, this)
+            }
+          </div>
         </div>;
     } else {
       commentNodes = <div>No annotations yet. Please add one.</div>;
