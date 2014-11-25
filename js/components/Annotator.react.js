@@ -37,8 +37,8 @@ var Annotator = React.createClass({
       commentNodes = 
         <div htmlClass='comments'>
           {this.state.comments.map(function(comment) {
-            return <AnnotationItem comment={comment} key={comment.id}/>;
-          })}
+            return <AnnotationItem comment={comment} key={comment.id} currentTime={this.state.videoTime}/>;
+          }, this)}
         </div>;
     } else {
       commentNodes = <div>No annotations yet. Please add one.</div>;
