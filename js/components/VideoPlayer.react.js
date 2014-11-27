@@ -1,6 +1,7 @@
 var React = require('react');
 var VAActions = require('../actions/VAActions');
 var VideoPlayerStore = require('../stores/VideoPlayerStore');
+var AnnotatorStore = require('../stores/AnnotatorStore');
 
 var VideoPlayer = React.createClass({
   getInitialState: function() {
@@ -9,14 +10,15 @@ var VideoPlayer = React.createClass({
   componentDidMount: function() {
     VideoPlayerStore.addChangeListener(this._onChange);
     VideoPlayerStore.addPlayerListener(this._onPlayerEventCallback);
-    this.initializeVideoPlayer();
+    AnnotatorStore.addChangeListener(this._onAnnotatorChange);
+    this._initializeVideoPlayer();
   },
   componentDidUnmount: function() {
     VideoPlayerStore.removeChangeListener(this._onChange);
     VideoPlayerStore.removePlayerListener(this._onPlayerEventCallback);
   },
   componentDidUpdate: function() {
-    this.updateVideoPlayer();
+    this._updateVideoPlayer();
   },
   render: function() {
     
@@ -38,28 +40,30 @@ var VideoPlayer = React.createClass({
   _onPlayerEventCallback: function(type) {
     switch (type) {
       case 'pause':
-        this.pauseVideoPlayer();
+        this._pauseVideoPlayer();
         break;
         
     }
   },
   
-  initializeVideoPlayer: function() {
+  _onAnnotatorChange: function() {
+    this._setMarkers();
+  },
+  
+  _initializeVideoPlayer: function() {
     videojs('videoplayer', {}, function() {
-      console.log("Video Player Initialized!!");
     });
   },
   
-  updateVideoPlayer: function() {
+  _updateVideoPlayer: function() {
     var video = this.state.video;
     if (video !== null) {
       var player = videojs('videoplayer').src(video.get('url'));
-      
       // A closure to save last_time value
       var timeUpdateCallback = (function(time_gap) {
         var last_time = 0
         return function() {
-          if (this.currentTime() - last_time > time_gap) {
+          if (Math.abs(this.currentTime() - last_time) > time_gap) {
             last_time = this.currentTime();
             VAActions.updateVideoPlayerProgress({time: last_time});
           }
@@ -70,8 +74,21 @@ var VideoPlayer = React.createClass({
     }
   },
   
-  pauseVideoPlayer: function() {
+  _pauseVideoPlayer: function() {
     videojs('videoplayer').pause();
+  },
+  
+  _setMarkers: function() {
+    var video = videojs('videoplayer');
+    var markers_times = AnnotatorStore.getComments().map(function(comment) { return comment.get('time')});
+    var markers_texts = AnnotatorStore.getComments().map(function(comment) { return comment.get('body')});
+    video.markers({
+      setting: {
+        forceInitialization: true
+      },
+      marker_breaks: markers_times,
+      marker_text: markers_texts
+    });
   }
 });
 

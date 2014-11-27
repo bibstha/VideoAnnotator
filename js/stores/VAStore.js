@@ -35,11 +35,9 @@ AppDispatcher.register(function(payload) {
   
   switch(action.actionType) {
     case VAConstants.VA_VBOX_CLICK:
-      console.log("Store listening to Click Callbacks");
       break;
       
     case VAConstants.VA_VBOX_READY:
-      console.log("VBOX IS READY");
       break;
       
     default:
