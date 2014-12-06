@@ -54,8 +54,9 @@ var Annotator = React.createClass({
     }
     
     return (
-      <div>
+      <div className='annotator-box'>
         <h4>Annotations</h4>
+        <AnnotatorMetadata/>
         {commentNodes}
         {commentsForm}
         <div>Time: {this.state.videoTime}</div>
