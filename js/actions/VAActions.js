@@ -33,7 +33,14 @@ var VAActions = {
   
   pauseVideoPlayer: function() {
     AppDispatcher.handleViewAction({
-      actionType: VAConstants.VA_VIDEO_PLAYER_PAUSE,
+      actionType: VAConstants.VA_VIDEO_PLAYER_PAUSE
+    });
+  },
+  
+  videoPlayerSeek: function(params) {
+    AppDispatcher.handleViewAction({
+      actionType: VAConstants.VA_VIDEO_PLAYER_SEEK,
+      params: params
     });
   }
 }

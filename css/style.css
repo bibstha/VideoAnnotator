@@ -37,6 +37,13 @@ ul.chat-item-list {
   float: left;
   clear: left;
 }
-.chat-item .chat-text {
-  
+.chat-controls div {
+  display: inline;
+  padding-right: 2px;
+}
+.chat-controls div:after {
+  content: ' \00B7 ';
+}
+.chat-controls div:last-of-type:after {
+  content: '';
 }

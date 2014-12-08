@@ -23,8 +23,8 @@ var VideoPlayerStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
-  emitPlayerEvent: function(type) {
-    this.emit(PLAYER_EVENT, type);
+  emitPlayerEvent: function(type, params) {
+    this.emit(PLAYER_EVENT, type, params);
   },
   
   getVideo: function() {
@@ -37,12 +37,17 @@ AppDispatcher.register(function(payload) {
   
   switch(action.actionType) {
     case VAConstants.VA_VBOX_CLICK:
-      _video = action.video;
+      var _video = action.video;
       VideoPlayerStore.emitChange();
       break;
       
     case VAConstants.VA_VIDEO_PLAYER_PAUSE:
       VideoPlayerStore.emitPlayerEvent('pause');
+      break;
+      
+    case VAConstants.VA_VIDEO_PLAYER_SEEK:
+      var params = action.params;
+      VideoPlayerStore.emitPlayerEvent('seek', params);
       break;
   }
   

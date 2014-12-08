@@ -37,10 +37,14 @@ var VideoPlayer = React.createClass({
     this.setState({video: VideoPlayerStore.getVideo()});
   },
   
-  _onPlayerEventCallback: function(type) {
+  _onPlayerEventCallback: function(type, params) {
     switch (type) {
       case 'pause':
         this._pauseVideoPlayer();
+        break;
+        
+      case 'seek':
+        this._seekVideoPlayer(params);
         break;
         
     }
@@ -76,6 +80,10 @@ var VideoPlayer = React.createClass({
   
   _pauseVideoPlayer: function() {
     videojs('videoplayer').pause();
+  },
+  
+  _seekVideoPlayer: function(params) {
+    // videojs('videoplayer').currentTime(params.current_time);
   },
   
   _setMarkers: function() {
