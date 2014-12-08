@@ -37,7 +37,7 @@ AppDispatcher.register(function(payload) {
   
   switch(action.actionType) {
     case VAConstants.VA_VBOX_CLICK:
-      var _video = action.video;
+      _video = action.video;
       VideoPlayerStore.emitChange();
       break;
       

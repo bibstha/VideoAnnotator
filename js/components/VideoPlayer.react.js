@@ -23,12 +23,13 @@ var VideoPlayer = React.createClass({
   render: function() {
     
     var title = (this.state.video !== null) ? this.state.video.get('title') : "Please select a video";
+    var videoElement = '<video id="videoplayer" class="video-js vjs-default-skin vjs-big-play-centered" controls ' +
+      'width="480" height="360"></video>';
     return (
       <div>
         <h4>Video Player</h4>
         <h3>{title}</h3>
-        <video id="videoplayer" className="video-js vjs-default-skin vjs-big-play-centered" controls 
-          width="480" height="360"></video>
+        <div dangerouslySetInnerHTML={{__html: videoElement}} />
       </div>
     );
   },
@@ -83,7 +84,7 @@ var VideoPlayer = React.createClass({
   },
   
   _seekVideoPlayer: function(params) {
-    // videojs('videoplayer').currentTime(params.current_time);
+    videojs('videoplayer').currentTime(params.current_time);
   },
   
   _setMarkers: function() {

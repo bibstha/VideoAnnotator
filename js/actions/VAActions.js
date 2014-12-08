@@ -37,7 +37,7 @@ var VAActions = {
     });
   },
   
-  videoPlayerSeek: function(params) {
+  seekVideoPlayer: function(params) {
     AppDispatcher.handleViewAction({
       actionType: VAConstants.VA_VIDEO_PLAYER_SEEK,
       params: params

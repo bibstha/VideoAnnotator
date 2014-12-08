@@ -15,7 +15,7 @@ var AnnotationItem = React.createClass({
     );
   },
   _handleClick: function() {
-    VAActions.videoPlayerSeek({current_time: this.props.comment.get('time')});
+    VAActions.seekVideoPlayer({current_time: this.props.comment.get('time')});
   }
 });
 
